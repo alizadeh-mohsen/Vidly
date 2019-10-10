@@ -21,6 +21,7 @@ namespace Vidly.Controllers
             return View(movie);
 
         }
+        [Route("Movies/Release/{year}/{month}")]
         public ActionResult ByReleaseDate(int year, byte month)
         {
             return Content($"Year={year} and Month={month}");
