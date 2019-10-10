@@ -1,9 +1,17 @@
-﻿@model Vidly.Models.Customer
+﻿@using System.Globalization
+@model Vidly.Models.Customer
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>@Model.Name</h2>
+<ul>
+    <li>MembershipType: @Model.MembershipType.Name</li>
+    @if (@Model.Birthday != DateTime.MinValue)
+    {
+        <li>Birth date: @Model.Birthday.ToShortDateString()</li>
+    }
+</ul>
 
 
