@@ -219,6 +219,14 @@
     <Compile Include="Migrations\201910101818237_overriddingConvention.Designer.cs">
       <DependentUpon>201910101818237_overriddingConvention.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910101930336_addNameToMembershipType.cs" />
+    <Compile Include="Migrations\201910101930336_addNameToMembershipType.Designer.cs">
+      <DependentUpon>201910101930336_addNameToMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910101931066_SeedForMembershipTypeName.cs" />
+    <Compile Include="Migrations\201910101931066_SeedForMembershipTypeName.Designer.cs">
+      <DependentUpon>201910101931066_SeedForMembershipTypeName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -321,6 +329,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910101818237_overriddingConvention.resx">
       <DependentUpon>201910101818237_overriddingConvention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101930336_addNameToMembershipType.resx">
+      <DependentUpon>201910101930336_addNameToMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101931066_SeedForMembershipTypeName.resx">
+      <DependentUpon>201910101931066_SeedForMembershipTypeName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
