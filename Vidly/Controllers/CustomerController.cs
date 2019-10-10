@@ -9,37 +9,26 @@ namespace Vidly.Controllers
 {
     public class CustomerController : Controller
     {
-        // GET: Customer
+        private ApplicationDbContext _context;
+
+        public CustomerController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public ActionResult Index()
         {
-            List<Customer> customers = new List<Customer>()
-            {
-                new Customer() {Id= 1,Name = "John Smit"},
-                new Customer() {Id = 2,Name = "Mary Williams"},
-            };
-
+            List<Customer> customers = _context.Customers.ToList();
             return View(customers);
         }
 
         public ActionResult Details(int id)
         {
-            Customer customer=new Customer();
-            if (id == 1)
-            {
-                customer.Name = "John Smit";
-                customer.Id = 1;
-            }
-            else if (id == 2)
-            {
-                customer.Name = "Mary Williams";
-
-                customer.Id = 2;
-            }
-            else
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            if (customer == null)
             {
                 return new HttpNotFoundResult();
             }
-
             return View(customer);
         }
     }
