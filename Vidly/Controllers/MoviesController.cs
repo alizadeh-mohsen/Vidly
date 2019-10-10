@@ -13,23 +13,18 @@ namespace Vidly.Controllers
         // GET: Movies
         public ActionResult Index(int? pageIndex , string sortBy)
         {
-            if (!pageIndex.HasValue)
+            Movie movie = new Movie()
             {
-                pageIndex = 1;
-            }
+                Id = 1,
+                Name = "Avengers"
+            };
+            return View(movie);
 
-            if (sortBy.IsNullOrWhiteSpace())
-            {
-                sortBy = "Name";
-            }
-
-            //Movie movie = new Movie()
-            //{
-            //    Id = 1,
-            //    Name = "Avengers"
-            //};
-            //return View(movie);
-            return Content($"PageIndex={pageIndex} and SortBy={sortBy}");
         }
+        public ActionResult ByReleaseDate(int year, byte month)
+        {
+            return Content($"Year={year} and Month={month}");
+        }
+
     }
 }

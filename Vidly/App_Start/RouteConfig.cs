@@ -15,8 +15,8 @@ namespace Vidly
 
             routes.MapRoute(
                 name: "movie",
-                url: "{controller}/{action}/{pageIndex}/{sortBy}",
-                defaults: new { controller = "Movies", action = "Index", pageIndex = UrlParameter.Optional ,sortBy=UrlParameter.Optional}
+                url: "Movies/ReleasedDate/{year}/{month}",
+                defaults: new { controller = "Movies", action = "ByReleaseDate"}
             );
             routes.MapRoute(
                 name: "Default",
