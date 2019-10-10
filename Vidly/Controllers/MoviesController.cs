@@ -6,20 +6,27 @@ using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Vidly.Models;
 using Vidly.ViewModel;
+using System.Data.Entity;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies
-        public ActionResult Index(int? pageIndex, string sortBy)
+        private ApplicationDbContext _context;
+
+        public MoviesController()
         {
-            Movie movie = new Movie()
+            _context=new ApplicationDbContext();
+        }
+
+        public ActionResult Index()
+        {
+            List<Movie> movies;
+            using (_context)
             {
-                Id = 1,
-                Name = "Avengers"
-            };
-            return View(movie);
+                movies = _context.Movies.Include(m=>m.Genre).ToList();
+            }
+            return View(movies);
 
         }
 
@@ -49,5 +56,15 @@ namespace Vidly.Controllers
             return View(viewModel);
         }
 
+        public ActionResult Details(int id)
+        {
+            Movie movie;
+            using (_context)
+            {
+                movie =_context.Movies.Include(m=>m.Genre).SingleOrDefault(m => m.Id == id);
+            }
+
+            return View(movie);
+        }
     }
 }

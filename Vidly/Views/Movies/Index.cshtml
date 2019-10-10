@@ -1,7 +1,26 @@
-﻿@model Vidly.Models.Movie
+﻿@model IEnumerable<Vidly.Models.Movie>
 
 
-<h2>Random Movies</h2>
-<p>
-    @Model.Name
-</p>
+<h2>Movies</h2>
+@if (@Model.Count().Equals(0))
+{
+    <p>We don't have any movies yet</p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Movie</th>
+            <th scope="col">Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in @Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@movie.Name, "details", new { id = @movie.Id }, null)</td>
+                <td>@movie.Genre.Name</td>
+            </tr>
+        }
+
+    </tbody>
+</table>

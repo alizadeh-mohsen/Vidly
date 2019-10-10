@@ -231,9 +231,26 @@
     <Compile Include="Migrations\201910101939573_AddingBirthdateToCustomer.Designer.cs">
       <DependentUpon>201910101939573_AddingBirthdateToCustomer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910101952445_addingGenre.cs" />
+    <Compile Include="Migrations\201910101952445_addingGenre.Designer.cs">
+      <DependentUpon>201910101952445_addingGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910101958584_addingGenreToMovie.cs" />
+    <Compile Include="Migrations\201910101958584_addingGenreToMovie.Designer.cs">
+      <DependentUpon>201910101958584_addingGenreToMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910102002563_addSeedToGenre.cs" />
+    <Compile Include="Migrations\201910102002563_addSeedToGenre.Designer.cs">
+      <DependentUpon>201910102002563_addSeedToGenre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910102017040_updateGenre.cs" />
+    <Compile Include="Migrations\201910102017040_updateGenre.Designer.cs">
+      <DependentUpon>201910102017040_updateGenre.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -309,6 +326,7 @@
     <Content Include="Views\Shared\_Navbar.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Movies\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -342,6 +360,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910101939573_AddingBirthdateToCustomer.resx">
       <DependentUpon>201910101939573_AddingBirthdateToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101952445_addingGenre.resx">
+      <DependentUpon>201910101952445_addingGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101958584_addingGenreToMovie.resx">
+      <DependentUpon>201910101958584_addingGenreToMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910102002563_addSeedToGenre.resx">
+      <DependentUpon>201910102002563_addSeedToGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910102017040_updateGenre.resx">
+      <DependentUpon>201910102017040_updateGenre.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
