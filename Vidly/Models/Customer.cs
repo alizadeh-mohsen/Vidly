@@ -15,5 +15,6 @@ namespace Vidly.Models
         public MembershipType MembershipType { get; set; }
         public byte MembershipTypeId { get; set; }
         public DateTime Birthday { get; set; }
+        public byte DiscountRate { get; set; }
     }
 }

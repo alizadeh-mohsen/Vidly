@@ -16,7 +16,7 @@ namespace Vidly.Controllers
 
         public MoviesController()
         {
-            _context=new ApplicationDbContext();
+            _context = new ApplicationDbContext();
         }
 
         public ActionResult Index()
@@ -24,7 +24,7 @@ namespace Vidly.Controllers
             List<Movie> movies;
             using (_context)
             {
-                movies = _context.Movies.Include(m=>m.Genre).ToList();
+                movies = _context.Movies.Include(m => m.Genre).ToList();
             }
             return View(movies);
 
@@ -61,10 +61,53 @@ namespace Vidly.Controllers
             Movie movie;
             using (_context)
             {
-                movie =_context.Movies.Include(m=>m.Genre).SingleOrDefault(m => m.Id == id);
+                movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
             }
-
             return View(movie);
+        }
+
+        public ActionResult New(string s)
+        {
+            ModifyMovieViewModel model = new ModifyMovieViewModel
+            {
+                Genres = _context.Genres.ToList()
+            };
+            return View("ModifyMovie", model);
+        }
+
+        //[HttpPost]
+        public ActionResult Save(ModifyMovieViewModel movieViewModel)
+        {
+            if (movieViewModel.Movie.Id.Equals(0))
+            {
+                _context.Movies.Add(movieViewModel.Movie);
+            }
+            else
+            {
+                var oldMovie = _context.Movies.SingleOrDefault(m => m.Id == movieViewModel.Movie.Id);
+                if (oldMovie != null)
+                {
+                    oldMovie.DateAdded = movieViewModel.Movie.DateAdded;
+                    oldMovie.GenreId = movieViewModel.Movie.GenreId;
+                    oldMovie.Name = movieViewModel.Movie.Name;
+                    oldMovie.NumberInStock = movieViewModel.Movie.NumberInStock;
+                    oldMovie.ReleaseDate = movieViewModel.Movie.ReleaseDate;
+                }
+            }
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Movies");
+
+        }
+
+        public ActionResult Edit(int id)
+        {
+            ModifyMovieViewModel model = new ModifyMovieViewModel
+            {
+                Movie = _context.Movies.SingleOrDefault(m => m.Id == id),
+                Genres = _context.Genres.ToList()
+            };
+            return View("ModifyMovie", model);
         }
     }
 }
