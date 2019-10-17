@@ -1,0 +1,79 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using Vidly.Models;
+
+namespace Vidly.Controllers.api
+{
+    public class CustomersController : ApiController
+    {
+        private ApplicationDbContext _context;
+
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return _context.Customers.ToList();
+        }
+
+        public Customer GetCustomer(int id)
+        {
+            var customer = _context.Customers.SingleOrDefault(c => c.Id.Equals(id));
+            if (customer == null)
+            {
+                throw new HttpRequestException(HttpStatusCode.NotFound.ToString());
+            }
+            return customer;
+        }
+
+        [HttpPost]
+        public Customer CreateCustomer(Customer customer)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new HttpRequestException(HttpStatusCode.BadRequest.ToString());
+            }
+            var newCustomer = _context.Customers.Add(customer);
+            _context.SaveChanges();
+            return newCustomer;
+        }
+
+        [HttpPut]
+        public void UpdateCustomer(int id, Customer customer)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new HttpRequestException(HttpStatusCode.BadRequest.ToString());
+            }
+
+            var dbCustomer = _context.Customers.SingleOrDefault(c => c.Id.Equals(id));
+
+            if (dbCustomer == null)
+            {
+                throw new HttpRequestException(HttpStatusCode.NotFound.ToString());
+            }
+            dbCustomer.Birthday = customer.Birthday;
+            dbCustomer.DiscountRate = customer.DiscountRate;
+            dbCustomer.MembershipTypeId = customer.MembershipTypeId;
+            dbCustomer.Name = customer.Name;
+            _context.SaveChanges();
+        }
+
+        [HttpDelete]
+        public void DeleteCustomer(int id)
+        {
+            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            if (customer == null)
+            {
+                throw new HttpRequestException(HttpStatusCode.NotFound.ToString());
+            }
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+        }
+    }
+}
