@@ -10,13 +10,14 @@
 {
     <p>We don't have any customers yet</p>
 }
-<table class="table">
+<table id="customers" class="table">
     <thead>
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Customer</th>
             <th scope="col">Discount</th>
             <th scope="col">MembershipType</th>
+            <th scope="col">Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -28,9 +29,37 @@
                 <td>@Html.ActionLink(@customer.Name, "Edit", new { id = @customer.Id }, null)</td>
                 <td>@customer.MembershipType.Name</td>
                 <td>@customer.MembershipType.DiscountRate%</td>
-
+                <td><button id="delete-button" data-customer-id="@customer.Id" data-customer-name="@customer.Name" class="btn btn-link js-delete">Delete</button></td>
             </tr>
         }
 
     </tbody>
 </table>
+@section scripts 
+{
+    <script>
+        $(document)
+            .ready(function () {
+                $("#customers").DataTable();
+                var button = $("#customers")
+                    .on("click", ".js-delete",
+                        function () {
+                            button = $(this);
+                            var name = button.attr("data-customer-name");
+
+                            bootbox.confirm("Are you sure you want to delete " + name + "?",
+                                function (result) {
+                                    if (result) {
+                                        $.ajax({
+                                            url: "/api/customers/" + button.attr("data-customer-id"),
+                                            method: "DELETE",
+                                            success: function () {
+                                                button.parents("tr").remove();
+                                            }
+                                        });
+                                    }
+                                });
+                        });
+            });
+    </script>
+}
