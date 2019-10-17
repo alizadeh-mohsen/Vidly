@@ -32,48 +32,50 @@ namespace Vidly.Controllers.api
         }
 
         [HttpPost]
-        public Customer CreateCustomer(Customer customer)
+        public IHttpActionResult CreateCustomer(Customer customer)
         {
             if (!ModelState.IsValid)
             {
-                throw new HttpRequestException(HttpStatusCode.BadRequest.ToString());
+                BadRequest();
             }
             var newCustomer = _context.Customers.Add(customer);
             _context.SaveChanges();
-            return newCustomer;
+            return Created(new Uri(Request.RequestUri + "/" + newCustomer.Id), newCustomer);
         }
 
         [HttpPut]
-        public void UpdateCustomer(int id, Customer customer)
+        public IHttpActionResult UpdateCustomer(int id, Customer customer)
         {
             if (!ModelState.IsValid)
             {
-                throw new HttpRequestException(HttpStatusCode.BadRequest.ToString());
+                BadRequest();
             }
 
             var dbCustomer = _context.Customers.SingleOrDefault(c => c.Id.Equals(id));
 
             if (dbCustomer == null)
             {
-                throw new HttpRequestException(HttpStatusCode.NotFound.ToString());
+                NotFound();
             }
             dbCustomer.Birthday = customer.Birthday;
             dbCustomer.DiscountRate = customer.DiscountRate;
             dbCustomer.MembershipTypeId = customer.MembershipTypeId;
             dbCustomer.Name = customer.Name;
             _context.SaveChanges();
+            return Ok();
         }
 
         [HttpDelete]
-        public void DeleteCustomer(int id)
+        public IHttpActionResult DeleteCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customer == null)
             {
-                throw new HttpRequestException(HttpStatusCode.NotFound.ToString());
+                NotFound();
             }
             _context.Customers.Remove(customer);
             _context.SaveChanges();
+            return Ok();
         }
     }
 }
