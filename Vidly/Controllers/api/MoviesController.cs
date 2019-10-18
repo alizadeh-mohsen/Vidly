@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -19,7 +20,7 @@ namespace Vidly.Controllers.api
 
         public IEnumerable<Movie> GetMovies()
         {
-            return _context.Movies.ToList();
+            return _context.Movies.Include(m=>m.Genre).ToList();
         }
 
         public Movie GetMovie(int id)
@@ -55,7 +56,7 @@ namespace Vidly.Controllers.api
             dbMovie.GenreId = movie.GenreId;
             dbMovie.Name = movie.Name;
             _context.SaveChanges();
-            return Ok();
+            return ApiController.ok
         }
 
         [HttpDelete]

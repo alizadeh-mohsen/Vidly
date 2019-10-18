@@ -46,6 +46,15 @@ namespace Vidly.Controllers
         [HttpPost]
         public ActionResult Save(ModifyCustomerViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ModifyCustomerViewModel modifyCustomerViewModel = new ModifyCustomerViewModel
+                {
+                    Customer = model.Customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+                return View("ModifyCustomer", modifyCustomerViewModel);
+            }
             if (model.Customer.Id.Equals(0))
             {
                 byte discountRate = 0;
